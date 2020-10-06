@@ -31,4 +31,4 @@ jobs:
         app-name: 'razam'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1b5f80a942ef4fd88fbdcdae44eb84c1 }}
-        package: '$(System.ArtifactsDirectory)/public/'
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/public'
