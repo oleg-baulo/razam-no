@@ -24,9 +24,10 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-        cd public
-        zip -r ../my-artifact.zip ./*
-        cd -
+    
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -r ./my-artifact.zip ./public/*
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
