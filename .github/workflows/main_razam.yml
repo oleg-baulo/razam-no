@@ -25,10 +25,19 @@ jobs:
         npm install
         npm run build --if-present
 
+    - name: ArchiveFiles@2
+      uses: ArchiveFiles@2
+      with:
+        rootFolderOrFile: 'public/'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/public.zip'
+        replaceExistingArchive: true
+      
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'razam'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1b5f80a942ef4fd88fbdcdae44eb84c1 }}
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/public'
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/public.zip'
