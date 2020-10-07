@@ -24,7 +24,9 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-        zip -r my-artifact.zip public
+        cd public
+        zip -r ../my-artifact.zip ./*
+        cd -
       
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
