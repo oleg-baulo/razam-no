@@ -20,11 +20,13 @@ jobs:
       with:
         node-version: '12.13.0'
 
-    - name: npm install, build, and test
+    - name: npm install, build
       run: |
         npm install
         npm run build --if-present
-        npm run test --if-present
+        cd public
+        zip -r ../my-artifact.zip ./*
+        cd -
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
@@ -32,4 +34,4 @@ jobs:
         app-name: 'razam-no'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0237814e7c894673adbc75792c28cb6e }}
-        package: .
+        package: my-artifact.zip
